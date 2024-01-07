@@ -7,8 +7,10 @@
     "esModuleInterop": false,
     "sourceMap": false,
     "outDir": "cjs",
+    "declaration": true
   },
   // "lib": ["es2015"]
   "include": ["index.ts", "./src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "./src/example"]
+  // "exclude": ["node_modules"]
 }

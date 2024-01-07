@@ -1,6 +1,6 @@
 import { ApiResponse, MakeRequestPayload, makeRequest } from './requster';
 import { DefaultErrorResponse } from './types/shared';
-import { AddCustomerToWalletPayload, CancelPaymentPayload, ConfirmPaymentPayload, CreatePaymentPayload, CreateSubscriptionPayload, CreateSubscriptionPlanPayload, RefundPaymentPayload, ResendCallbackPayload, SuccessMessageResponse, SuccessResponseAddCustomerToWalletPayload, SuccessResponseCancelPayment, SuccessResponseConfirmPayment, SuccessResponseCreatePaymentType, SuccessResponseCreateSubscription, SuccessResponseCreateSubscriptionPlan, SuccessResponseDeleteCustomerPaymentFromWalletPayload, SuccessResponseGetCustomerSubscription, SuccessResponseGetInfo, SuccessResponseGetPlan, SuccessResponseGetPlans, SuccessResponseGetSubscription, SuccessResponseGetSubscriptionPayments, SuccessResponseRefundPayment, UpdatePlanPayload, UpdateSubscriptionPayload } from './types';
+import { AddCustomerToWalletPayload, CancelPaymentPayload, ConfirmPaymentPayload, CreatePaymentPayload, CreateSubscriptionPayload, CreateSubscriptionPlanPayload, DeleteCustomerPaymentFromWalletPayload, RefundPaymentPayload, ResendCallbackPayload, SuccessMessageResponse, SuccessResponseAddCustomerToWalletPayload, SuccessResponseCancelPayment, SuccessResponseConfirmPayment, SuccessResponseCreatePaymentType, SuccessResponseCreateSubscription, SuccessResponseCreateSubscriptionPlan, SuccessResponseDeleteCustomerPaymentFromWalletPayload, SuccessResponseGetCustomerInfo, SuccessResponseGetCustomerSubscription, SuccessResponseGetInfo, SuccessResponseGetPlan, SuccessResponseGetPlans, SuccessResponseGetSubscription, SuccessResponseGetSubscriptionPayments, SuccessResponseRefundPayment, UpdatePlanPayload, UpdateSubscriptionPayload } from './types';
 
 export class RozetkaPaySDK {
   base_url: string
@@ -132,7 +132,7 @@ export class RozetkaPaySDK {
   // ** Customers
 
   /** Deletes customer payment method from wallet. Either X-CUSTOMER-AUTH header or external_id param is required.  */
-  async getCustomerInfo(external_id: string): Promise<ApiResponse<SuccessResponseGetInfo, DefaultErrorResponse>> {
+  async getCustomerInfo(external_id: string): Promise<ApiResponse<SuccessResponseGetCustomerInfo, DefaultErrorResponse>> {
     try {
       const reqPayload: MakeRequestPayload = {
         headers: {
@@ -142,7 +142,7 @@ export class RozetkaPaySDK {
         method: 'GET',
         url: this.base_url + 'api/customers/v1/wallet?external_id=' + external_id
       }
-      const res = await makeRequest<SuccessResponseGetInfo, DefaultErrorResponse>(reqPayload)
+      const res = await makeRequest<SuccessResponseGetCustomerInfo, DefaultErrorResponse>(reqPayload)
 
       return res
     } catch (error) {
@@ -151,7 +151,7 @@ export class RozetkaPaySDK {
   }
 
   /** Returns customer details including payment methods, if saved. Either X-CUSTOMER-AUTH header or external_id param is required. */
-  async deleteCustomerPaymentFromWallet(external_id: string, paylaod: CreatePaymentPayload): Promise<ApiResponse<SuccessResponseDeleteCustomerPaymentFromWalletPayload, DefaultErrorResponse>> {
+  async deleteCustomerPaymentFromWallet(external_id: string, paylaod: DeleteCustomerPaymentFromWalletPayload): Promise<ApiResponse<SuccessResponseDeleteCustomerPaymentFromWalletPayload, DefaultErrorResponse>> {
     try {
       const reqPayload: MakeRequestPayload = {
         headers: {
